@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>User Details</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial;
+    }
+
+    body{
+
+      background:#f2f2f2;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      min-height:100vh;
+
+      padding:20px;
+
+    }
+
+    .container{
+
+      width:450px;
+
+      background:white;
+
+      padding:30px;
+
+      border-radius:10px;
+
+      box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+    }
+
+    h2{
+
+      text-align:center;
+
+      margin-bottom:20px;
+
+    }
+
+    input,select{
+
+      width:100%;
+
+      padding:12px;
+
+      margin:10px 0;
+
+      border:1px solid #ccc;
+
+      border-radius:5px;
+
+      font-size:16px;
+
+    }
+
+    label{
+
+      font-weight:bold;
+
+      display:block;
+
+      margin-top:10px;
+
+    }
+
+    button{
+
+      width:100%;
+
+      padding:12px;
+
+      border:none;
+
+      background:#4facfe;
+
+      color:white;
+
+      font-size:16px;
+
+      border-radius:5px;
+
+      cursor:pointer;
+
+      margin-top:20px;
+
+    }
+
+    button:hover{
+
+      background:#0099ff;
+
+    }
+
+    .hidden{
+
+      display:none;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>Fill Your Details</h2>
+
+    <!-- Name -->
+
+    <input
+    type="text"
+    id="name"
+    placeholder="Full Name">
+
+    <!-- Age -->
+
+    <input
+    type="number"
+    id="age"
+    placeholder="Age">
+
+    <!-- City -->
+
+    <input
+    type="text"
+    id="city"
+    placeholder="City">
+
+    <!-- Phone -->
+
+    <input
+    type="tel"
+    id="phone"
+    placeholder="Phone Number">
+
+    <!-- Education -->
+
+    <select
+    id="education"
+    onchange="toggleCollegeField()">
+
+      <option value="">
+        Select Education
+      </option>
+
+      <option value="10th">
+        10th
+      </option>
+
+      <option value="12th">
+        12th
+      </option>
+
+      <option value="Diploma">
+        Diploma
+      </option>
+
+      <option value="UG">
+        UG
+      </option>
+
+      <option value="PG">
+        PG
+      </option>
+
+    </select>
+
+    <!-- School Name -->
+
+    <input
+    type="text"
+    id="school"
+    placeholder="School Name">
+
+    <!-- College Section -->
+
+    <div id="collegeSection">
+
+      <input
+      type="text"
+      id="college"
+      placeholder="College Name">
+
+    </div>
+
+    <!-- Caste Certificate -->
+
+    <label>
+      Upload Caste Certificate
+      (Max 1MB)
+    </label>
+
+    <input
+    type="file"
+    id="casteCertificate">
+
+    <!-- Marksheet -->
+
+    <label>
+      Upload Marksheet
+      (Max 1MB)
+    </label>
+
+    <input
+    type="file"
+    id="marksheet">
+
+    <!-- Submit -->
+
+    <button onclick="submitDetails()">
+
+      Submit
+
+    </button>
+
+  </div>
+
+  <script>
+
+    /* Hide College Field */
+
+    function toggleCollegeField(){
+
+      const education =
+      document.getElementById("education").value;
+
+      const collegeSection =
+      document.getElementById("collegeSection");
+
+      if(
+        education === "10th" ||
+        education === "12th"
+      ){
+
+        collegeSection.classList.add("hidden");
+
+      }
+      else{
+
+        collegeSection.classList.remove("hidden");
+
+      }
+
+    }
+
+    /* Submit Form */
+
+    function submitDetails(){
+
+      const name =
+      document.getElementById("name").value;
+
+      const age =
+      document.getElementById("age").value;
+
+      const city =
+      document.getElementById("city").value;
+
+      const phone =
+      document.getElementById("phone").value;
+
+      const education =
+      document.getElementById("education").value;
+
+      const school =
+      document.getElementById("school").value;
+
+      const college =
+      document.getElementById("college").value;
+
+      const casteCertificate =
+      document.getElementById(
+      "casteCertificate"
+      ).files[0];
+
+      const marksheet =
+      document.getElementById(
+      "marksheet"
+      ).files[0];
+
+      /* Empty Validation */
+
+      if(
+        name === "" ||
+        age === "" ||
+        city === "" ||
+        phone === "" ||
+        education === "" ||
+        school === ""
+      ){
+
+        alert(
+          "Please fill all required fields"
+        );
+
+        return;
+
+      }
+
+      /* College Validation */
+
+      if(
+        education !== "10th" &&
+        education !== "12th" &&
+        college === ""
+      ){
+
+        alert("Please enter college name");
+
+        return;
+
+      }
+
+      /* Age Validation */
+
+      if(age <= 0){
+
+        alert(
+          "Age cannot be zero or negative"
+        );
+
+        return;
+
+      }
+
+      /* Phone Validation */
+
+      if(phone.length !== 10){
+
+        alert(
+          "Phone number must be 10 digits"
+        );
+
+        return;
+
+      }
+
+      /* File Upload Validation */
+
+      if(!casteCertificate){
+
+        alert(
+          "Please upload caste certificate"
+        );
+
+        return;
+
+      }
+
+      if(!marksheet){
+
+        alert(
+          "Please upload marksheet"
+        );
+
+        return;
+
+      }
+
+      /* File Size Validation */
+
+      const maxSize =
+      1024 * 1024;
+
+      if(
+        casteCertificate.size > maxSize
+      ){
+
+        alert(
+          "Caste Certificate file size limit exceeded. File must be under 1MB."
+        );
+
+        document.getElementById(
+        "casteCertificate"
+        ).value = "";
+
+        return;
+
+      }
+
+      if(
+        marksheet.size > maxSize
+      ){
+
+        alert(
+          "Marksheet file size limit exceeded. File must be under 1MB."
+        );
+
+        document.getElementById(
+        "marksheet"
+        ).value = "";
+
+        return;
+
+      }
+
+      /* Success */
+
+      alert(
+        "Details Submitted Successfully"
+      );
+
+      console.log({
+
+        name,
+        age,
+        city,
+        phone,
+        education,
+        school,
+        college,
+        casteCertificate,
+        marksheet
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
