@@ -2,441 +2,481 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta name="viewport"
-  content="width=device-width, initial-scale=1.0">
-
-  <title>User Details</title>
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial;
-    }
-
-    body{
-
-      background:#f2f2f2;
-
-      display:flex;
-
-      justify-content:center;
-
-      align-items:center;
-
-      min-height:100vh;
-
-      padding:20px;
-
-    }
-
-    .container{
-
-      width:450px;
-
-      background:white;
-
-      padding:30px;
-
-      border-radius:10px;
-
-      box-shadow:0 5px 15px rgba(0,0,0,0.2);
-
-    }
-
-    h2{
-
-      text-align:center;
-
-      margin-bottom:20px;
-
-    }
-
-    input,select{
-
-      width:100%;
-
-      padding:12px;
-
-      margin:10px 0;
-
-      border:1px solid #ccc;
-
-      border-radius:5px;
-
-      font-size:16px;
-
-    }
-
-    label{
-
-      font-weight:bold;
-
-      display:block;
-
-      margin-top:10px;
-
-    }
-
-    button{
-
-      width:100%;
-
-      padding:12px;
-
-      border:none;
-
-      background:#4facfe;
-
-      color:white;
-
-      font-size:16px;
-
-      border-radius:5px;
-
-      cursor:pointer;
-
-      margin-top:20px;
-
-    }
-
-    button:hover{
-
-      background:#0099ff;
-
-    }
-
-    .hidden{
-
-      display:none;
-
-    }
-
-  </style>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Workspace Portal</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="container">
-
-    <h2>Fill Your Details</h2>
-
-    <!-- Name -->
-
-    <input
-    type="text"
-    id="name"
-    placeholder="Full Name">
-
-    <!-- Age -->
-
-    <input
-    type="number"
-    id="age"
-    placeholder="Age">
-
-    <!-- City -->
-
-    <input
-    type="text"
-    id="city"
-    placeholder="City">
-
-    <!-- Phone -->
-
-    <input
-    type="tel"
-    id="phone"
-    placeholder="Phone Number">
-
-    <!-- Education -->
-
-    <select
-    id="education"
-    onchange="toggleCollegeField()">
-
-      <option value="">
-        Select Education
-      </option>
-
-      <option value="10th">
-        10th
-      </option>
-
-      <option value="12th">
-        12th
-      </option>
-
-      <option value="Diploma">
-        Diploma
-      </option>
-
-      <option value="UG">
-        UG
-      </option>
-
-      <option value="PG">
-        PG
-      </option>
-
-    </select>
-
-    <!-- School Name -->
-
-    <input
-    type="text"
-    id="school"
-    placeholder="School Name">
-
-    <!-- College Section -->
-
-    <div id="collegeSection">
-
-      <input
-      type="text"
-      id="college"
-      placeholder="College Name">
-
+  <div class="container" id="workspacePortalContainer">
+    <div class="header-actions">
+      <button type="button" class="btn-logout" onclick="logoutSession()">Sign Out System</button>
     </div>
 
-    <!-- Caste Certificate -->
+    <h2>Application Workspace</h2>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progress"></div>
+      <div class="circle active">1</div>
+      <div class="circle">2</div>
+      <div class="circle">3</div>
+      <div class="circle">4</div>
+      <div class="circle">5</div>
+    </div>
 
-    <label>
-      Upload Caste Certificate
-      (Max 1MB)
-    </label>
+    <form id="multiStepForm" onsubmit="event.preventDefault();">
+      
+      <div class="form-step active">
+        <h3>Step 1: Personal Profile Matrix</h3>
+        <div class="row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" id="firstname" disabled required>
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" id="lastname" disabled required>
+          </div>
+        </div>
 
-    <input
-    type="file"
-    id="casteCertificate">
+        <div class="row">
+          <div class="form-group">
+            <label>Date of Birth *</label>
+            <input type="date" id="dob" disabled required>
+          </div>
+          <div class="form-group">
+            <label>Gender Architecture *</label>
+            <select id="gender" required>
+              <option value="">Select Option</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
 
-    <!-- Marksheet -->
+        <div class="form-group">
+          <label>Father's Legal Identity Name *</label>
+          <input type="text" id="father_name" required>
+        </div>
+        <div class="form-group">
+          <label>Mother's Legal Identity Name *</label>
+          <input type="text" id="mother_name" required>
+        </div>
 
-    <label>
-      Upload Marksheet
-      (Max 1MB)
-    </label>
+        <div class="form-group">
+          <label>Social Category Group Class *</label>
+          <select id="category" required>
+            <option value="">Select Category Block</option>
+            <option value="General">General</option>
+            <option value="OBC">OBC</option>
+            <option value="SC">SC</option>
+            <option value="ST">ST</option>
+          </select>
+        </div>
 
-    <input
-    type="file"
-    id="marksheet">
+        <div class="btn-container">
+          <div></div> 
+          <button type="button" class="btn-primary" style="width: auto;" onclick="nextStep()">Continue Progression</button>
+        </div>
+      </div>
 
-    <!-- Submit -->
+      <div class="form-step">
+        <h3>Step 2: Communication Vectors</h3>
+        <div class="row">
+          <div class="form-group">
+            <label>Email Address ID *</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="phone" maxlength="10" disabled required>
+          </div>
+        </div>
 
-    <button onclick="submitDetails()">
+        <div class="form-group">
+          <label>Mailing Core Base Address *</label>
+          <input type="text" id="address" required>
+        </div>
 
-      Submit
+        <div class="row">
+          <div class="form-group">
+            <label>City Matrix *</label>
+            <input type="text" id="city" required>
+          </div>
+          <div class="form-group">
+            <label>State Jurisdictions *</label>
+            <input type="text" id="state" required>
+          </div>
+        </div>
 
-    </button>
+        <div class="form-group">
+          <label>Pincode Mapping Signature *</label>
+          <input type="text" id="pincode" maxlength="6" required>
+        </div>
 
+        <div class="btn-container">
+          <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-primary" style="width: auto;" onclick="nextStep()">Continue Progression</button>
+        </div>
+      </div>
+
+      <div class="form-step">
+        <h3>Step 3: Identification & Academics</h3>
+        <div class="row">
+          <div class="form-group">
+            <label>PAN Signature Mapping *</label>
+            <input type="text" id="pan_no" placeholder="ABCDE1234F" required>
+          </div>
+          <div class="form-group">
+            <label>Aadhaar Signature Mapping *</label>
+            <input type="text" id="aadhar_no" placeholder="12-digit number verification structural format" maxlength="12" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>User System Internal ID *</label>
+          <input type="number" id="user_id" disabled required>
+        </div>
+
+        <div class="form-group">
+          <label>Highest Academic Threshold *</label>
+          <select id="education" onchange="toggleCollegeField()" required>
+            <option value="">Select Level</option>
+            <option value="10th">10th Metric Standard</option>
+            <option value="12th">12th Higher Secondary</option>
+            <option value="Diploma">Technical Diploma</option>
+            <option value="UG">Undergraduate Studies</option>
+            <option value="PG">Postgraduate Framework</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>School Institution Name *</label>
+          <input type="text" id="school" required>
+        </div>
+
+        <div class="form-group" id="collegeSection">
+          <label>College Institution Name *</label>
+          <input type="text" id="college">
+        </div>
+
+        <div class="btn-container">
+          <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-primary" style="width: auto;" onclick="nextStep()">Continue Progression</button>
+        </div>
+      </div>
+
+      <div class="form-step">
+        <h3>Step 4: Image File Upload Repositories</h3>
+        
+        <div class="file-upload-card">
+          <label>Applicant Photo Image * (Max 1MB)</label>
+          <input type="file" id="photo" accept="image/*" required>
+        </div>
+
+        <div class="file-upload-card">
+          <label>Applicant Dynamic Signature Record * (Max 1MB)</label>
+          <input type="file" id="signature_doc" accept="image/*" required>
+        </div>
+
+        <div class="file-upload-card">
+          <label>Aadhaar Hardcopy Asset Document * (Max 1MB)</label>
+          <input type="file" id="aadhar" required>
+        </div>
+
+        <div class="file-upload-card">
+          <label>PAN Card Asset Verification Document * (Max 1MB)</label>
+          <input type="file" id="pan" required>
+        </div>
+
+        <div class="file-upload-card">
+          <label>Category Verification Certifications (Optional, Max 1MB)</label>
+          <input type="file" id="category_certificate">
+        </div>
+
+        <div class="btn-container">
+          <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-primary" style="width: auto;" onclick="goToPaymentStage()">Verify Assets & Proceed</button>
+        </div>
+      </div>
+
+      <div class="form-step">
+        <h3>Step 5: Settlement Processing System</h3>
+        <div class="payment-box">
+          <p>Processing Service Tariff Charge:</p>
+          <div class="amount-display">INR 500.00</div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Total Payable Value Context: 50000 Paise</p>
+          <button type="button" id="payBtn" class="btn-primary" onclick="payNow()">Initialize Transaction Engine</button>
+        </div>
+        
+        <div class="btn-container">
+          <button type="button" id="payBackBtn" class="btn-secondary" onclick="prevStep()">Back</button>
+        </div>
+      </div>
+
+    </form>
   </div>
 
   <script>
-
-    /* Hide College Field */
-
-    function toggleCollegeField(){
-
-      const education =
-      document.getElementById("education").value;
-
-      const collegeSection =
-      document.getElementById("collegeSection");
-
-      if(
-        education === "10th" ||
-        education === "12th"
-      ){
-
-        collegeSection.classList.add("hidden");
-
-      }
-      else{
-
-        collegeSection.classList.remove("hidden");
-
+    // Security Access Validation Interceptor & Autofill Engine
+    document.addEventListener("DOMContentLoaded", () => {
+      const activeToken = localStorage.getItem("token");
+      if (!activeToken) {
+        alert("🔒 Unauthorized access. Terminal session requires signature token verification validation credentials.");
+        window.location.href = "index.html";
+        return;
       }
 
+      // Autofill fields using localized application state cache parameters
+      document.getElementById("firstname").value = localStorage.getItem("user_firstname") || "John";
+      document.getElementById("lastname").value = localStorage.getItem("user_lastname") || "Doe";
+      document.getElementById("dob").value = localStorage.getItem("user_dob") || "2000-01-01";
+      document.getElementById("phone").value = localStorage.getItem("user_phone") || "9876543210";
+      document.getElementById("user_id").value = localStorage.getItem("user_id") || "2345";
+    });
+
+    function logoutSession() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("pendingEmail");
+      alert("Session storage token records destroyed successfully.");
+      window.location.href = "index.html";
     }
 
-    /* Submit Form */
+    let currentStep = 0;
+    const steps = document.querySelectorAll(".form-step");
+    const circles = document.querySelectorAll(".circle");
+    const progress = document.getElementById("progress");
 
-    function submitDetails(){
-
-      const name =
-      document.getElementById("name").value;
-
-      const age =
-      document.getElementById("age").value;
-
-      const city =
-      document.getElementById("city").value;
-
-      const phone =
-      document.getElementById("phone").value;
-
-      const education =
-      document.getElementById("education").value;
-
-      const school =
-      document.getElementById("school").value;
-
-      const college =
-      document.getElementById("college").value;
-
-      const casteCertificate =
-      document.getElementById(
-      "casteCertificate"
-      ).files[0];
-
-      const marksheet =
-      document.getElementById(
-      "marksheet"
-      ).files[0];
-
-      /* Empty Validation */
-
-      if(
-        name === "" ||
-        age === "" ||
-        city === "" ||
-        phone === "" ||
-        education === "" ||
-        school === ""
-      ){
-
-        alert(
-          "Please fill all required fields"
-        );
-
-        return;
-
-      }
-
-      /* College Validation */
-
-      if(
-        education !== "10th" &&
-        education !== "12th" &&
-        college === ""
-      ){
-
-        alert("Please enter college name");
-
-        return;
-
-      }
-
-      /* Age Validation */
-
-      if(age <= 0){
-
-        alert(
-          "Age cannot be zero or negative"
-        );
-
-        return;
-
-      }
-
-      /* Phone Validation */
-
-      if(phone.length !== 10){
-
-        alert(
-          "Phone number must be 10 digits"
-        );
-
-        return;
-
-      }
-
-      /* File Upload Validation */
-
-      if(!casteCertificate){
-
-        alert(
-          "Please upload caste certificate"
-        );
-
-        return;
-
-      }
-
-      if(!marksheet){
-
-        alert(
-          "Please upload marksheet"
-        );
-
-        return;
-
-      }
-
-      /* File Size Validation */
-
-      const maxSize =
-      1024 * 1024;
-
-      if(
-        casteCertificate.size > maxSize
-      ){
-
-        alert(
-          "Caste Certificate file size limit exceeded. File must be under 1MB."
-        );
-
-        document.getElementById(
-        "casteCertificate"
-        ).value = "";
-
-        return;
-
-      }
-
-      if(
-        marksheet.size > maxSize
-      ){
-
-        alert(
-          "Marksheet file size limit exceeded. File must be under 1MB."
-        );
-
-        document.getElementById(
-        "marksheet"
-        ).value = "";
-
-        return;
-
-      }
-
-      /* Success */
-
-      alert(
-        "Details Submitted Successfully"
-      );
-
-      console.log({
-
-        name,
-        age,
-        city,
-        phone,
-        education,
-        school,
-        college,
-        casteCertificate,
-        marksheet
-
+    function updateStepVisibility() {
+      steps.forEach((step, index) => {
+        if (index === currentStep) {
+          step.classList.add("active");
+        } else {
+          step.classList.remove("active");
+        }
       });
 
+      circles.forEach((circle, index) => {
+        if (index <= currentStep) {
+          circle.classList.add("active");
+        } else {
+          circle.classList.remove("active");
+        }
+      });
+
+      const activeCircles = document.querySelectorAll(".circle.active");
+      progress.style.width = ((activeCircles.length - 1) / (circles.length - 1)) * 100 + "%";
     }
 
-  </script>
+    function nextStep() {
+      if (validateCurrentStep()) {
+        currentStep++;
+        updateStepVisibility();
+      }
+    }
 
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        updateStepVisibility();
+      }
+    }
+
+    function toggleCollegeField() {
+      const education = document.getElementById("education").value;
+      const collegeSection = document.getElementById("collegeSection");
+      const collegeInput = document.getElementById("college");
+
+      if (education === "10th" || education === "12th") {
+        collegeSection.classList.add("hidden");
+        collegeInput.required = false;
+        collegeInput.value = "";
+      } else {
+        collegeSection.classList.remove("hidden");
+        collegeInput.required = true;
+      }
+    }
+
+    function validateCurrentStep() {
+      const activeFields = steps[currentStep].querySelectorAll("[required]");
+      for (let field of activeFields) {
+        // Bypass native browser value verification skips on locked inputs
+        if (field.disabled) continue; 
+        
+        if (!field.value.trim()) {
+          alert("Please fill out all structural elements before advancing.");
+          field.focus();
+          return false;
+        }
+        if (field.id === "phone" && field.value.length !== 10) {
+          alert("Phone mapping length constraints require exactly 10 numeric values.");
+          field.focus();
+          return false;
+        }
+        if (field.type === "file" && field.files.length > 0) {
+          const maxSize = 1024 * 1024;
+          if (field.files[0].size > maxSize) {
+            alert("File capacity thresholds cannot exceed 1MB specifications.");
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function goToPaymentStage() {
+      if (!validateCurrentStep()) return;
+      currentStep++;
+      updateStepVisibility();
+    }
+
+    // Dynamic Verification Execution Engine
+    async function payNow() {
+      const payButton = document.getElementById("payBtn");
+      const backButton = document.getElementById("payBackBtn");
+      
+      payButton.disabled = true;
+      payButton.innerText = "Securing Order Token Context...";
+      backButton.style.display = "none";
+
+      try {
+        const orderRes = await fetch('http://13.42.30.223/posting/payment/create-order', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          },
+          body: JSON.stringify({ amount: 50000 })
+        });
+        
+        if (!orderRes.ok) throw new Error("Could not initialize target verification order transaction.");
+        const order = await orderRes.json();
+
+        var options = {
+          key: order.key_id,
+          amount: order.amount,
+          currency: order.currency,
+          order_id: order.order_id,
+          name: "Application Management System Portal",
+          description: "Document Upload Processing Pipeline Service",
+          prefill: {
+            name: document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
+            email: document.getElementById("email").value,
+            contact: document.getElementById("phone").value
+          },
+          theme: { color: "#4facfe" },
+
+          handler: async function(response) {
+            payButton.innerText = "Processing Verification Pipeline...";
+
+            const formData = new FormData();
+            formData.append("order_id", response.razorpay_order_id);
+            formData.append("payment_id", response.razorpay_payment_id);
+            formData.append("signature", response.razorpay_signature);
+            formData.append("amount", 50000);
+
+            // Explicitly pull absolute field values regardless of element visibility/lock properties
+            formData.append("firstname", document.getElementById("firstname").value);
+            formData.append("lastname", document.getElementById("lastname").value);
+            formData.append("dob", document.getElementById("dob").value);
+            formData.append("gender", document.getElementById("gender").value);
+            formData.append("father_name", document.getElementById("father_name").value);
+            formData.append("mother_name", document.getElementById("mother_name").value);
+            formData.append("category", document.getElementById("category").value);
+            formData.append("phone", document.getElementById("phone").value);
+            formData.append("address", document.getElementById("address").value);
+            formData.append("city", document.getElementById("city").value);
+            formData.append("state", document.getElementById("state").value);
+            formData.append("pincode", document.getElementById("pincode").value);
+            formData.append("aadhar_no", document.getElementById("aadhar_no").value);
+            formData.append("pan_no", document.getElementById("pan_no").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("user_id", parseInt(document.getElementById("user_id").value));
+
+            formData.append("photo", document.getElementById("photo").files[0]);
+            formData.append("signature_doc", document.getElementById("signature_doc").files[0]);
+            formData.append("aadhar", document.getElementById("aadhar").files[0]);
+            formData.append("pan", document.getElementById("pan").files[0]);
+
+            const optionalCert = document.getElementById("category_certificate").files[0];
+            if (optionalCert) {
+              formData.append("category_certificate", optionalCert);
+            }
+
+            try {
+              const verifyRes = await fetch('http://13.42.30.223/posting/payment/verify', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: formData
+              });
+
+              const result = await verifyRes.json();
+
+              if (verifyRes.ok) {
+                alert("✅ Verification Complete. Processing record data mapping tracking approved.");
+                generateFormPDF(response.razorpay_payment_id);
+              } else {
+                alert("❌ Backend Error: " + JSON.stringify(result.detail));
+                resetPaymentUI();
+              }
+            } catch(err) {
+              alert("❌ Data pipe interruption tracking error: " + err.message);
+              resetPaymentUI();
+            }
+          },
+          modal: {
+            ondismiss: function() {
+              alert("Transaction frame dropped out. Active portal operational tasks canceled.");
+              resetPaymentUI();
+            }
+          }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (err) {
+        alert("❌ Dynamic Init Error: " + err.message);
+        resetPaymentUI();
+      }
+    }
+
+    function resetPaymentUI() {
+      const payButton = document.getElementById("payBtn");
+      const backButton = document.getElementById("payBackBtn");
+      payButton.disabled = false;
+      payButton.innerText = "Initialize Transaction Engine";
+      backButton.style.display = "block";
+    }
+
+    // ─── AUTOMATED RECEIPT PDF EXPORT ENGINE ───────────────────────────────────────
+    function generateFormPDF(paymentId) {
+      // Temporarily hide interactive navigation controllers so they don't look messy in the output layout
+      document.querySelector(".header-actions").style.display = "none";
+      document.querySelector(".btn-container").style.display = "none";
+      if(document.getElementById("payBackBtn")) document.getElementById("payBackBtn").style.display = "none";
+
+      const element = document.getElementById("workspacePortalContainer");
+      
+      const exportOptions = {
+        margin:       15,
+        filename:     'Application_Receipt_' + paymentId + '.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(exportOptions).from(element).save().then(() => {
+        document.querySelector(".header-actions").style.display = "flex";
+        document.querySelector(".btn-container").style.display = "flex";
+        window.location.reload();
+      });
+    }
+  </script>
 </body>
 </html>
