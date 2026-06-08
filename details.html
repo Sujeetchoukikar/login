@@ -72,17 +72,19 @@
 
     /* ── LEFT SIDEBAR 30% ── */
     .sidebar {
-      width: 30%;
-      flex-shrink: 0;
-      padding: 36px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: sticky;
-      top: 62px;
-      height: calc(100vh - 62px);
-      overflow-y: auto;
-    }
+  width: 30%;
+  flex-shrink: 0;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: sticky;
+  top: 62px;
+  height: calc(100vh - 62px);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.40);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
     .sidebar-title {
       font-size: 13px;
       font-weight: 700;
@@ -164,18 +166,20 @@
     }
 
     /* ── RIGHT FORM PANEL 70% ── */
-    .form-panel {
-      flex: 1;
-      padding: 36px 40px 60px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-    .form-panel .container {
-      width: 100%;
-      max-width: 680px;
-      margin: 0;
-    }
+    /* ── RIGHT FORM PANEL 70% ── */
+.form-panel {
+  flex: 1;
+  padding: 36px 40px 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;   /* ← was: center */
+}
+
+.form-panel .container {
+  width: 100%;
+  max-width: 100%;            /* ← was: 680px, removes the cap */
+  margin: 0;
+}
 
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
