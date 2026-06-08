@@ -20,11 +20,56 @@
 body {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   background: var(--bg-gradient);
-  padding: 20px;
   color: var(--text-main);
+  padding: 20px;
+}
+
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.navbar .btn-logout {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  padding: 7px 16px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.navbar .btn-logout:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  box-shadow: none;
+}
+
+/* Push container down from navbar */
+.container {
+  margin: 32px auto;
 }
 
 /* Glass panel background container wrapper */
@@ -34,10 +79,10 @@ body {
   background: var(--surface);
   padding: 40px;
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 10px 10px -5px rgba(0,0,0,0.1);
   position: relative;
+  margin: auto;        /* ← centers it vertically too when no navbar */
 }
-
 /* Auth version container structural change */
 .auth-container {
   max-width: 420px;
